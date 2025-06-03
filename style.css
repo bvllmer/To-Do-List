@@ -1,0 +1,129 @@
+body {
+    font-family: sans-serif;
+    color: #ffffff;
+    padding: 2rem;
+    background-color: #141414;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+}
+
+.container {
+    width: 400px;
+    margin: 0 auto;
+    background-color: #1b1b1b;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.header-box {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.header-box h1 {
+    font-size: 28px;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.input-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.task-box {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px 0;
+    border-top: 1px solid #333;
+}
+
+#taskInput {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 0;
+}
+
+#addTaskBtn {
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#addTaskBtn:hover {
+    background-color: #45a049;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    width: 100%;
+}
+
+li {
+    background-color: #1f1f1f;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    gap: 10px;
+}
+
+label {
+    flex-grow: 1;
+    margin-left: 10px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+button.remove-btn {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.remove-btn:hover {
+    background-color: #e60000;
+    cursor: pointer;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+#taskList {
+    margin: 6px 0;
+    font-size: 18px;
+}
+
+input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.input-container {
+    display: flex;
+    margin-bottom: 20px;
+    width: 100%;
+}
