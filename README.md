@@ -4,7 +4,6 @@
 ## Features
 - Save tasks to LocalStorage, restoring them on restart.
 - Mark tasks as done.
-- Save tasks marked as done to LocalStorage.
 - Remove tasks.
 
 ## Coming Soon
