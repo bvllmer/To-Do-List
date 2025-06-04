@@ -1,5 +1,5 @@
 body {
-    font-family: sans-serif;
+    font-family: roboto;
     color: #ffffff;
     padding: 2rem;
     background-color: #141414;
@@ -22,6 +22,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
     border-bottom: 1px solid #333;
+    font-family: sans-serif;
 }
 
 .header-box h1 {
@@ -51,6 +52,11 @@ body {
     border: 1px solid #ccc;
     border-radius: 6px;
     min-width: 0;
+}
+
+#taskInput:focus {
+    outline: none;
+    background-color: #f1f1f1;
 }
 
 #addTaskBtn {
@@ -84,7 +90,6 @@ li {
     align-items: flex-start;
     justify-content: space-between;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    gap: 10px;
 }
 
 label {
@@ -132,6 +137,42 @@ input[type="checkbox"] {
 
 .input-container {
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 20px;
     width: 100%;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-evenly;
+    flex-basis: 100%;
+    margin-top: 10px;
+    gap: 8px;
+}
+
+.filters button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    font-size: 15px;
+    font-family: roboto;
+    font-weight: 500;
+}
+
+.filters button:hover {
+    background-color: #e0e0e0;
+}
+
+.filters button.active-filter {
+    background-color: #007BFF;
+    color: white;
+    border-color: #007BFF;
 }

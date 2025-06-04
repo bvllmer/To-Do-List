@@ -8,9 +8,44 @@ window.addEventListener("DOMContentLoaded", () => {
     const tasks = stored.map(t =>
         typeof t === "string" ? { text: t, completed: false } : t
     );
-    tasks.forEach(task => addTask(task));
+    renderTasks();
+    updateFilterButton(getViewFromURL());
     localStorage.setItem("tasks", JSON.stringify(tasks)); // Ensure tasks are stored in the correct format
+
+    document.querySelectorAll(".filters button").forEach(button => {
+        button.addEventListener("click", () => {
+            setFilter(button.dataset.view);
+        });
+    });
 });
+
+function getViewFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get("view");
+    return view === "completed" || view === "active" ? view : "all";
+}
+
+function setFilter(view) {
+    const url = new URL(window.location);
+    if (view === "all") {
+        url.searchParams.delete("view");
+    } else {
+        url.searchParams.set("view", view);
+    }
+    window.history.pushState({}, "", url);
+    renderTasks();
+    updateFilterButton(view);
+}
+
+function updateFilterButton(view) {
+    document.querySelectorAll(".filters button").forEach(btn => {
+        if (btn.dataset.view === view || (view === "all" && !btn.dataset.view)) {
+            btn.classList.add("active-filter");
+        } else {
+            btn.classList.remove("active-filter");
+        }
+    });
+}
 
 addButton.addEventListener("click", () => {
     const taskText = input.value.trim();
@@ -22,7 +57,20 @@ addButton.addEventListener("click", () => {
     }
 });
 
-function addTask(task) {
+input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        addButton.click();
+    }
+});
+
+function addTask(task, filterView = "all") {
+    if (
+        (filterView === "completed" && !task.completed) ||
+        (filterView === "active" && task.completed)
+    ) {
+        return; // Skip this task
+    }
+
     const li = document.createElement("li");
 
     const checkbox = document.createElement("input");
@@ -49,13 +97,33 @@ function addTask(task) {
 
     checkbox.addEventListener("change", () => {
         task.completed = checkbox.checked;
-        updateTasksInLocalStorage();
+
+        // Update just this task in LocalStorage
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        const index = tasks.findIndex(t => t.text === task.text);
+        if (index !== -1) {
+            tasks[index].completed = task.completed;
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        renderTasks();
     });
 
     li.appendChild(checkbox);
     li.appendChild(label);
     li.appendChild(deleteBtn);
     taskList.appendChild(li);
+}
+
+function renderTasks() {
+    const view = getViewFromURL();
+    const stored = JSON.parse(localStorage.getItem("tasks")) || [];
+    const tasks = stored.map(t =>
+        typeof t === "string" ? { text: t, completed: false } : t
+    );
+
+    taskList.innerHTML = ""; // Clear current list
+    tasks.forEach(task => addTask(task, view));
 }
 
 function saveTask(task) {

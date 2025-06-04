@@ -5,12 +5,12 @@
 - Save tasks to LocalStorage, restoring them on restart.
 - Mark tasks as done.
 - Remove tasks.
-
-## Coming Soon
-<details>
+- <details>
   <summary>View parameters.</summary>
   
   - ?view=all
   - ?view=active
   - ?view=completed
 </details>
+
+## Coming Soon
