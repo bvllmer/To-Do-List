@@ -1,10 +1,14 @@
 # Preview
 ![image](https://github.com/user-attachments/assets/5a394c2a-0261-4b68-b5e9-00d804974bcd)
 
-# Features
+## Features
 - Save tasks to LocalStorage, restoring them on restart.
 - Mark tasks as done.
+- Save tasks marked as done to LocalStorage.
 - Remove tasks.
 
-# Coming Soon
-- Save tasks marked as done to LocalStorage.
+## Coming Soon
+- View parameters.
+  - ?view=all
+  - ?view=active
+  - ?view=completed
