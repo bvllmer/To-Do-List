@@ -7,7 +7,10 @@
 - Remove tasks.
 
 ## Coming Soon
-- View parameters.
+<details>
+  <summary>View parameters.</summary>
+  
   - ?view=all
   - ?view=active
   - ?view=completed
+</details>
