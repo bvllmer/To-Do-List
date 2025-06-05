@@ -14,3 +14,8 @@
 </details>
 
 ## Coming Soon
+- Clear all completed tasks.
+- Priority tags.
+- Edit tasks inline.
+- Drag & drop reordering.
+- Save to file/export tasks.
