@@ -79,6 +79,7 @@ function addTask(task, filterView = "all") {
 
     const label = document.createElement("label");
     label.textContent = task.text;
+    enableInlineEdit(label, task, li);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("remove-btn");
@@ -98,9 +99,8 @@ function addTask(task, filterView = "all") {
     checkbox.addEventListener("change", () => {
         task.completed = checkbox.checked;
 
-        // Update just this task in LocalStorage
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        const index = tasks.findIndex(t => t.text === task.text);
+        const index = tasks.findIndex(t => t.text === task.text && t.completed !== task.completed);
         if (index !== -1) {
             tasks[index].completed = task.completed;
             localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -108,6 +108,7 @@ function addTask(task, filterView = "all") {
 
         renderTasks();
     });
+
 
     li.appendChild(checkbox);
     li.appendChild(label);
@@ -150,3 +151,40 @@ function updateTasksInLocalStorage() {
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+function enableInlineEdit(label, task, li) {
+    label.addEventListener("dblclick", () => {
+        const inputEdit = document.createElement("input");
+        inputEdit.type = "text";
+        inputEdit.value = label.textContent;
+        inputEdit.classList.add("edit-input");
+
+        const originalText = task.text;
+
+        li.replaceChild(inputEdit, label);
+        inputEdit.focus();
+
+        const saveEdit = () => {
+        const newText = inputEdit.value.trim();
+        if (newText !== "") {
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            const index = tasks.findIndex(t => t.text === originalText && t.completed === task.completed);
+            if (index !== -1) {
+                tasks[index].text = newText;
+                localStorage.setItem("tasks", JSON.stringify(tasks));
+            }
+
+            renderTasks(); // triggers re-adding the label and all events
+        } else {
+            li.replaceChild(label, inputEdit); // cancel if empty
+        }
+    };
+
+
+        inputEdit.addEventListener("blur", saveEdit);
+        inputEdit.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") saveEdit();
+        });
+    });
+}
+

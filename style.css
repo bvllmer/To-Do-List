@@ -99,6 +99,24 @@ li {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.edit-input {
+    width: 100%;
+    font-size: 16px;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-family: inherit;
+}
+
+.edit-input:focus {
+    outline: none;
+    font-size: 16px;
+    font-family: roboto;
+    font-weight: 500;
+}
+
 label {
     flex-grow: 1;
     margin-left: 10px;
