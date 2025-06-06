@@ -19,6 +19,44 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+new Sortable(taskList, {
+    animation: 150,
+    onEnd: () => {
+        updateOrderInLocalStorage();
+    }
+});
+
+function updateOrderInLocalStorage() {
+    const newOrder = [];
+    taskList.querySelectorAll("li").forEach(li => {
+        const label = li.querySelector("label");
+        const checkbox = li.querySelector("input[type=checkbox]");
+        const priority = li.querySelector(".priority-tag")?.textContent?.toLowerCase() || "low";
+        newOrder.push({
+            text: label.textContent,
+            completed: checkbox.checked,
+            priority: priority
+        });
+    });
+    localStorage.setItem("tasks", JSON.stringify(newOrder));
+}
+
+document.getElementById("clearCompletedBtn").addEventListener("click", () => {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const remainingTasks = tasks.filter(t => !t.completed);
+    localStorage.setItem("tasks", JSON.stringify(remainingTasks));
+
+    // Animate and remove completed tasks
+    const listItems = document.querySelectorAll("#taskList li");
+    listItems.forEach(li => {
+        const checkbox = li.querySelector("input[type='checkbox']");
+        if (checkbox && checkbox.checked) {
+            li.classList.add("fade-out");
+            setTimeout(() => li.remove(), 300); // Match duration with CSS
+        }
+    });
+});
+
 function getViewFromURL() {
     const params = new URLSearchParams(window.location.search);
     const view = params.get("view");
@@ -49,13 +87,21 @@ function updateFilterButton(view) {
 
 addButton.addEventListener("click", () => {
     const taskText = input.value.trim();
+    // const priority = document.getElementById("prioritySelect").value;
+
     if (taskText !== "") {
-        const task = { text: taskText, completed: false };
-        addTask(task);
+        const task = {
+            text: taskText,
+            completed: false,
+            // priority: priority
+        };
         saveTask(task);
+        renderTasks();
         input.value = "";
+        document.getElementById("prioritySelect").value = "low"; // reset
     }
 });
+
 
 input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -77,6 +123,13 @@ function addTask(task, filterView = "all") {
     checkbox.type = "checkbox";
     checkbox.checked = task.completed;
 
+    const prioritySpan = document.createElement("span");
+    prioritySpan.className = `priority-tag ${task.priority || "low"}`;
+    prioritySpan.textContent = (task.priority || "Low").toUpperCase();
+    prioritySpan.style.marginRight = "8px";
+    prioritySpan.style.fontSize = "0.75rem";
+    prioritySpan.style.fontWeight = "bold";
+
     const label = document.createElement("label");
     label.textContent = task.text;
     enableInlineEdit(label, task, li);
@@ -92,9 +145,13 @@ function addTask(task, filterView = "all") {
     deleteBtn.appendChild(img);
     
     deleteBtn.addEventListener("click", () => {
-        li.remove();
-        removeTask(task.text);
+        li.classList.add("fade-out");
+        setTimeout(() => {
+            li.remove();
+            removeTask(task.text);
+        }, 300); // Match the fade duration
     });
+
 
     checkbox.addEventListener("change", () => {
         task.completed = checkbox.checked;
@@ -111,6 +168,7 @@ function addTask(task, filterView = "all") {
 
 
     li.appendChild(checkbox);
+    // li.appendChild(prioritySpan);
     li.appendChild(label);
     li.appendChild(deleteBtn);
     taskList.appendChild(li);
@@ -144,9 +202,11 @@ function updateTasksInLocalStorage() {
     taskList.querySelectorAll("li").forEach(li => {
         const checkbox = li.querySelector("input[type=checkbox]");
         const label = li.querySelector("label");
+        const priority = li.querySelector(".priority-tag")?.textContent?.toLowerCase() || "low";
         tasks.push({
             text: label.textContent,
-            completed: checkbox.checked
+            completed: checkbox.checked,
+            priority: priority
         });
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -187,4 +247,3 @@ function enableInlineEdit(label, task, li) {
         });
     });
 }
-

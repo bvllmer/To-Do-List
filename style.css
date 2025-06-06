@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-    width: 400px;
+    width: 500px;
     margin: 0 auto;
     background-color: #1b1b1b;
     border-radius: 12px;
@@ -40,8 +40,44 @@ body {
 .task-box {
     max-height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 10px 0;
     border-top: 1px solid #333;
+}
+
+.priority-tag {
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.priority-tag.low {
+    background-color: #4caf50;
+}
+
+.priority-tag.medium {
+    background-color: #ff9800;
+}
+
+.priority-tag.high {
+    background-color: #f44336;
+}
+
+.priority-tag.urgent {
+    background-color: #d32f2f;
+}
+
+#prioritySelect {
+    padding: 10px;
+    font-family: roboto;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #2a2a2a;
+    color: #fff;
+    cursor: pointer;
 }
 
 #taskInput {
@@ -50,7 +86,6 @@ body {
     font-size: 15px;
     font-family: roboto;
     font-weight: 600;
-    margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     min-width: 0;
@@ -71,10 +106,26 @@ body {
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 #addTaskBtn:hover {
     background-color: #45a049;
+}
+
+.add-tasks {
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    gap: 10px;
+    flex-basis: 100%;
+}
+
+.clear-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 ul {
@@ -131,13 +182,45 @@ button.remove-btn {
     border: none;
     color: white;
     padding: 6px 8px;
+    margin-left: 5px;
     border-radius: 6px;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 button.remove-btn:hover {
     background-color: #e60000;
     cursor: pointer;
+}
+
+.clear-btn {
+    margin-top: 10px;
+    padding: 10px 16px;
+    border: 1px solid #ff4d4d;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    font-size: 15px;
+    font-family: roboto;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border 0.2s ease;
+    width: 100%;
+}
+
+.clear-btn:hover {
+    background: #ff4d4d;
+}
+
+.clear-btn:active {
+    background: #e60000;
+    border-color: #e60000;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .completed {
@@ -148,6 +231,11 @@ button.remove-btn:hover {
 #taskList {
     margin: 6px 0;
     font-size: 18px;
+}
+
+#taskList li {
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 input[type="checkbox"]:checked + label {
@@ -179,8 +267,7 @@ input[type="checkbox"] {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     padding: 8px 12px;
-    margin-right: 8px;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
     flex: 1;
