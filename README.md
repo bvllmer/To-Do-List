@@ -5,14 +5,10 @@
 - Save tasks to LocalStorage, restoring them on restart.
 - Mark tasks as done.
 - Remove tasks.
-- <details>
-  <summary>View parameters.</summary>
-  
+- View parameters.
   - ?view=all
   - ?view=active
   - ?view=completed
-</details>
-
 - Edit tasks inline.
 - Drag & drop reordering.
 - Clear all completed tasks.
