@@ -45,41 +45,6 @@ body {
     border-top: 1px solid #333;
 }
 
-.priority-tag {
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-.priority-tag.low {
-    background-color: #4caf50;
-}
-
-.priority-tag.medium {
-    background-color: #ff9800;
-}
-
-.priority-tag.high {
-    background-color: #f44336;
-}
-
-.priority-tag.urgent {
-    background-color: #d32f2f;
-}
-
-#prioritySelect {
-    padding: 10px;
-    font-family: roboto;
-    font-weight: 600;
-    font-size: 15px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: #2a2a2a;
-    color: #fff;
-    cursor: pointer;
-}
-
 #taskInput {
     flex-grow: 1;
     padding: 10px;
@@ -188,9 +153,8 @@ button.remove-btn {
     transition: background 0.2s ease;
 }
 
-button.remove-btn:hover {
-    background-color: #e60000;
-    cursor: pointer;
+button.remove-btn:active {
+    background-color: #ff3636;
 }
 
 .clear-btn {
@@ -213,8 +177,8 @@ button.remove-btn:hover {
 }
 
 .clear-btn:active {
-    background: #e60000;
-    border-color: #e60000;
+    background: #ff3636;
+    border-color: #ff3636;
 }
 
 .fade-out {

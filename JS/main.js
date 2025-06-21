@@ -31,11 +31,9 @@ function updateOrderInLocalStorage() {
     taskList.querySelectorAll("li").forEach(li => {
         const label = li.querySelector("label");
         const checkbox = li.querySelector("input[type=checkbox]");
-        const priority = li.querySelector(".priority-tag")?.textContent?.toLowerCase() || "low";
         newOrder.push({
             text: label.textContent,
             completed: checkbox.checked,
-            priority: priority
         });
     });
     localStorage.setItem("tasks", JSON.stringify(newOrder));
@@ -87,18 +85,15 @@ function updateFilterButton(view) {
 
 addButton.addEventListener("click", () => {
     const taskText = input.value.trim();
-    // const priority = document.getElementById("prioritySelect").value;
 
     if (taskText !== "") {
         const task = {
             text: taskText,
             completed: false,
-            // priority: priority
         };
         saveTask(task);
         renderTasks();
         input.value = "";
-        document.getElementById("prioritySelect").value = "low"; // reset
     }
 });
 
@@ -122,13 +117,6 @@ function addTask(task, filterView = "all") {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = task.completed;
-
-    const prioritySpan = document.createElement("span");
-    prioritySpan.className = `priority-tag ${task.priority || "low"}`;
-    prioritySpan.textContent = (task.priority || "Low").toUpperCase();
-    prioritySpan.style.marginRight = "8px";
-    prioritySpan.style.fontSize = "0.75rem";
-    prioritySpan.style.fontWeight = "bold";
 
     const label = document.createElement("label");
     label.textContent = task.text;
@@ -168,7 +156,6 @@ function addTask(task, filterView = "all") {
 
 
     li.appendChild(checkbox);
-    // li.appendChild(prioritySpan);
     li.appendChild(label);
     li.appendChild(deleteBtn);
     taskList.appendChild(li);
@@ -202,11 +189,9 @@ function updateTasksInLocalStorage() {
     taskList.querySelectorAll("li").forEach(li => {
         const checkbox = li.querySelector("input[type=checkbox]");
         const label = li.querySelector("label");
-        const priority = li.querySelector(".priority-tag")?.textContent?.toLowerCase() || "low";
         tasks.push({
             text: label.textContent,
             completed: checkbox.checked,
-            priority: priority
         });
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
